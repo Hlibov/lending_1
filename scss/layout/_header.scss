@@ -1,0 +1,342 @@
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: blue;
+
+  @include media('>=desktop') {
+    // padding: 49px 0;
+  }
+}
+
+.header-holder {
+  position: relative;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  @include media('>=desktop') {
+    height: auto;
+  }
+}
+
+.header-logo {
+  // width: 21.453%;
+  width: 62px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 4;
+
+  img {
+    width: 100%;
+  }
+}
+
+.menu-opener {
+  display: block;
+  position: relative;
+  width: 30px;
+  height: 20px;
+  z-index: 3;
+
+  @include media('>=desktop') {
+    display: none;
+  }
+
+  &:before,
+  &:after {
+    content: "";
+  }
+
+  &:before,
+  &:after,
+  & span {
+    @include animate(transform);
+
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    background-color: #fff;
+
+  }
+
+  & span {
+    width: 70%;
+    right: 0;
+    left: auto;
+  }
+
+  &:before {
+    top: 0;
+  }
+
+  &:after {
+    bottom: 0;
+  }
+
+  & span {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &.active {
+
+    &:before {
+      transform: rotate(45deg);
+      top: 9px;
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+      top: 9px;
+    }
+
+    span {
+      transform: scale(0);
+    }
+  }
+}
+
+.header-menu {
+  @include media('<desktop') {
+    @include animate(top);
+
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: -100%;
+    left: 0;
+    padding: 60px 0 0;
+    background-color: $background-color1;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  display: flex;
+  justify-content: space-between;
+
+  @include media('>=widescreen') {
+    width: 86.44%;
+
+  }
+
+  &.active {
+    top: 0;
+  }
+
+  a {
+    @include animate(color);
+
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  .menu-list {
+    @extend %listreset;
+
+    position: relative;
+    z-index: 3;
+
+    @include media('>=desktop') {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    li {
+      @include media('<desktop') {
+        padding: 28px 0;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      position: relative;
+      margin-right: 10px;
+      font-family: $base-font-sans-serif;
+      color: $color-text-menu;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.07px;
+      text-align: center;
+
+      @include media('>=widescreen') {
+        margin-right: 38px;
+        padding: 49px 0;
+      }
+
+      &:last-child {
+        margin: 0;
+      }
+
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        width: 27px;
+        height: 2px;
+        background-color: $color-text-active-menu;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+      }
+
+      &:before {
+        top: 0;
+      }
+
+      &:after {
+        bottom: 1px;
+
+        @include media('>=desktop') {
+          display: none;
+        }
+      }
+
+      &.active {
+        color: $color-text-active-menu;
+
+        &:before,
+        &:after {
+          opacity: 1;
+        }
+      }
+
+      a {
+
+        @include animate(color);
+
+        &:hover {
+          color: $color-text-active-menu;
+        }
+      }
+    }
+
+    &-icons {
+      @extend %listreset;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include media('<desktop') {
+        padding: 28px 0;
+      }
+
+      @include media('>=widescreen') {
+        margin-right: 50px;
+      }
+
+      li {
+        margin: 0 20px;
+        font-size: 14px;
+
+        @include media('<desktop') {
+          font-size: 24px;
+        }
+
+        @include media('>=widescreen') {
+          margin: 0 0 0 20px;
+        }
+      }
+    }
+  }
+
+  .holder-flex {
+    @include media('>=desktop') {
+      display: flex;
+    }
+  }
+
+  .link-item {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .box-items {
+    display: flex;
+    align-items: center;
+
+    @include media('<desktop') {
+      flex-direction: column;
+    }
+
+    @include media('>=desktop') {
+      margin-right: 63px;
+    }
+
+    .item-lang {
+      margin: 0 0 10px;
+      color: $color-text-menu;
+
+      @include media('>=desktop') {
+        margin: 0 10px;
+        color: $color-text-dark;
+      }
+
+      @include media('>=widescreen') {
+        margin-right: 118px;
+      }
+
+      a {
+        @include media('>=desktop') {
+          color: $color-text-dark;
+        }
+
+        &:hover {
+          color: $base-link-color;
+        }
+      }
+
+      .active {
+        color: $color-text-active-menu;
+
+        @include media('>=desktop') {
+          color: $base-link-color;
+        }
+      }
+    }
+
+    .item-chat {
+
+      @include media('<desktop') {
+        text-transform: uppercase;
+      }
+
+      a {
+        @include media('>=desktop') {
+          color: $color-text-dark;
+        }
+
+        &:hover {
+          color: $base-link-color;
+        }
+      }
+
+      [class^="icon-"] {
+        font-size: 12px;
+        transform: rotate(10deg);
+        display: inline-block;
+        margin-left: 7px;
+      }
+    }
+  }
+
+  .lock {
+    overflow: hidden;
+  }
+}
